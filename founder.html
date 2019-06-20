@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Founder SJMS</title>
+<link rel="icon" type="image/ico" href="images/favicon.ico"/>
+<link rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+        
+        //options( 1 - ON , 0 - OFF)
+        var auto_slide = 1;
+            var hover_pause = 1;
+        var key_slide = 1;
+        
+        //speed of auto slide(
+        var auto_slide_seconds = 2000;
+        /* IMPORTANT: i know the variable is called ...seconds but it's 
+        in milliseconds ( multiplied with 1000) '*/
+        
+        /*move he last list item before the first item. The purpose of this is 
+        if the user clicks to slide left he will be able to see the last item.*/
+        $('#carousel_ul li:first').before($('#carousel_ul li:last')); 
+        
+        //check if auto sliding is enabled
+        if(auto_slide == 1){
+            /*set the interval (loop) to call function slide with option 'right' 
+            and set the interval time to the variable we declared previously */
+            var timer = setInterval('slide("right")', auto_slide_seconds); 
+            
+            /*and change the value of our hidden field that hold info about
+            the interval, setting it to the number of milliseconds we declared previously*/
+            $('#hidden_auto_slide_seconds').val(auto_slide_seconds);
+        }
+  
+        //check if hover pause is enabled
+        if(hover_pause == 1){
+            //when hovered over the list 
+            $('#carousel_ul').hover(function(){
+                //stop the interval
+                clearInterval(timer)
+            },function(){
+                //and when mouseout start it again
+                timer = setInterval('slide("right")', auto_slide_seconds); 
+            });
+  
+        }
+  
+        //check if key sliding is enabled
+        if(key_slide == 1){
+            
+            //binding keypress function
+            $(document).bind('keypress', function(e) {
+                //keyCode for left arrow is 37 and for right it's 39 '
+                if(e.keyCode==37){
+                        //initialize the slide to left function
+                        slide('left');
+                }else if(e.keyCode==39){
+                        //initialize the slide to right function
+                        slide('right');
+                }
+            });
+
+        }
+        
+        
+  });
+
+//FUNCTIONS BELLOW
+
+//slide function  
+function slide(where){
+    
+            //get the item width
+            var item_width = $('#carousel_ul li').outerWidth() + 10;
+            
+            /* using a if statement and the where variable check 
+            we will check where the user wants to slide (left or right)*/
+            if(where == 'left'){
+                //...calculating the new left indent of the unordered list (ul) for left sliding
+                var left_indent = parseInt($('#carousel_ul').css('left')) + item_width;
+            }else{
+                //...calculating the new left indent of the unordered list (ul) for right sliding
+                var left_indent = parseInt($('#carousel_ul').css('left')) - item_width;
+            
+            }
+            
+            
+            //make the sliding effect using jQuery's animate function... '
+            $('#carousel_ul:not(:animated)').animate({'left' : left_indent},500,function(){    
+                
+                /* when the animation finishes use the if statement again, and make an ilussion
+                of infinity by changing place of last or first item*/
+                if(where == 'left'){
+                    //...and if it slided to left we put the last item before the first item
+                    $('#carousel_ul li:first').before($('#carousel_ul li:last'));
+                }else{
+                    //...and if it slided to right we put the first item after the last item
+                    $('#carousel_ul li:last').after($('#carousel_ul li:first')); 
+                }
+                
+                //...and then just get back the default left indent
+                $('#carousel_ul').css({'left' : '-127px'});
+            });             
+           
+}
+  
+</script>
+    <link rel="stylesheet" href="themes/default/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="themes/light/light.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="themes/dark/dark.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="themes/bar/bar.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen" />
+</head>
+
+<body>
+<div class="wrap">
+<div class="header">
+<a href="index.html"><img class="logo" src="images/logo.png" /></a>
+<img class="name" src="images/name.png"/>
+<div class="nav">
+<ul class="menu">
+<li>
+<a href="index.html" style="background-image:none;">Home</a>
+</li>
+<li class="active">
+<a href="founder.html">Founder</a>
+</li>
+<li>
+<a href="academics.html">Academics</a>
+</li>
+<li>
+<a href="gallery.html">Gallery</a>
+</li>
+<li>
+<a href="alumini.html">Alumini</a>
+</li>
+<li>
+<a href="contact_us.html">Contact Us</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="banner image">
+<img src="images/founder_banner.png"/>
+</div>
+<div class="content_founder">
+<div class="founder_slide image">
+<div class="slider-wrapper theme-default">
+            <div id="slider" class="nivoSlider">
+                <a href="gallery.html"><img src="images/founder_slide1.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide2.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide3.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide4.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide5.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide6.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide7.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide8.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide9.jpg" /></a>
+                <a href="gallery.html"><img src="images/founder_slide10.jpg" /></a>
+            </div>
+        </div>
+</div>
+<h2 style="margin-bottom:10px;">Founder's message:</h2>
+<p class="text2">Every Child who enters the school is a gift. First it is God’s gift to its parents and family. But also it is a gift to the schools, to the country and to the world at large.</p>
+<p class="text3" style="margin-bottom:60px;">IF THEY ARE TRAINED AT SCHOOL, THEY CAN BECOME USEFUL TO THE SOCIETY OTHERWISE HEADACHE TO THE SOCIETY.</p>
+<p class="text2">The Creator has a unique destiny for each individual. What a marvelous thing it is to be co-worker in the plan of the Creator. Parents and Teachers are given the glorious opportunity to help mould these children to their fullest capacity. They can help them, to be aglow with the spirit and love of the creator and bring them to that self knowledge and awareness of his presence in the human person.</p>
+<p class="text2">In such an atmosphere, can there be any sort of disrespect for human life if young minds and hearts are trained to respect self and others?</p>
+<p class="text2">The joy of the EDUCATOR can be compared to that of the potter? The POTTER gives shape to the clay. The finished product is his joy. So too does the teacher form and mould the child. The result is not merely a stative product, but a mature, well developed genuine human person. In this way the educator can be said to recreator. He / she re-creates the child to develop it to its full potential.</p>
+<p class="text2">We encourage our teachers. May they spare the efforts to kindle the flame of light in every child entrusted to their care.</p>
+<div >
+<img src="images/abt_founder.jpg"/>
+</div>
+<p class="text2">The alphabets in the name itself tells clearly his noble qualities. Our late principal MR. C.FELIX cared the STUDENTS not only in their studies but also in all the activities. He guided the students</p>
+<p class="text3">To Get ready for School,<br/>
+To plan out the Works systematically,<br/>
+To obey and follow traffic rules on road,<br/>
+To behave in the class room,<br/>
+To behave well wherever they go,<br/>
+To do the works by themselves,<br/>
+To be neat and tidy,<br/>
+To take care of the health during all seasons,<br/>
+To respect elders and others…….<br/>
+	………. And So on</p>
+</div>
+<div class="footer">
+<div class="slide">
+<div id='carousel_container'>
+    <div id='carousel_inner'>
+        <ul id='carousel_ul'>
+            <li><a href='gallery.html'><img src='images/fslide1.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide2.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide3.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide4.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide5.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide6.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide7.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide8.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide9.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide10.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide11.jpg' /></a></li>
+            <li><a href='gallery.html'><img src='images/fslide12.jpg' /></a></li>
+      </ul>
+    </div>
+  <input type='hidden' id='hidden_auto_slide_seconds' value=0 />
+  </div>
+</div>
+
+<div class="copy">
+<p>copyrights @ St John’s Matriculation school 2013</p>
+</div>
+</div>
+
+
+</div>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider({effect:'fade'});
+    });
+    </script>
+
+</body>
+</html>
